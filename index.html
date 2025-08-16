@@ -1,215 +1,174 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Leaders Weave Stories — Leadership Narrative Worksheet (v2)</title>
-
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-  <style>
-    :root{
-      --bg:#FDFBF7; --paper:#ffffff; --text:#374151; --muted:#6B7280;
-      --brand:#1F4C9D; --brand-700:#1F4C9D; --brand-50:#EFF4FF;
-      --ok:#16a34a; --warn:#D97706;
-    }
-    body{ font-family:'Inter',sans-serif; background:var(--bg); color:var(--text); }
-    .form-section{ display:none; } .form-section.active{ display:block; }
-    .progress-bar-fill{ transition: width .4s ease; }
-    .chart-container{ position:relative; width:100%; max-width:720px; margin-inline:auto; height:360px; }
-    @media (min-width:1024px){ .chart-container{ height:420px; } }
-    input[type=range]{ -webkit-appearance:none; width:100%; background:transparent; }
-    input[type=range]::-webkit-slider-runnable-track{ height:8px; background:#e5e7eb; border-radius:6px; }
-    input[type=range]::-webkit-slider-thumb{ -webkit-appearance:none; width:20px; height:20px; margin-top:-6px; border-radius:50%; background:var(--brand); box-shadow:0 0 0 3px rgba(31,76,157,.15); }
-    input[type=range]::-moz-range-track{ height:8px; background:#e5e7eb; border-radius:6px; }
-    input[type=range]::-moz-range-thumb{ width:20px; height:20px; border:none; border-radius:50%; background:var(--brand); }
-    @media print{ #wizard, #controls, .no-print { display:none !important; } #summary-section{ display:block !important; } .card{ box-shadow:none !important; } }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leaders Weave Stories — Narrative Worksheet (Prewired)</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{ --brand:#1F4C9D; }
+  body{ font-family:Inter, sans-serif; background:#FDFBF7; color:#374151; }
+  .form-section{ display:none; } .form-section.active{ display:block; }
+  @media print{ #controls, .no-print { display:none !important; } }
+</style>
 </head>
-<body>
-  <script>
-    const InstitutionConfig = {
-      logoUrl: "", // optional: embed logo as data URI
-      instituteName: "Leaders Weave Stories",
-      instructorEmail: "rajiv@leadersweavestories.com",
-      brandColor: "#1F4C9D"
-    };
-  </script>
+<body class="p-4 sm:p-8">
+<header class="max-w-5xl mx-auto flex items-center justify-between mb-6">
+  <div>
+    <h1 class="text-2xl font-semibold">Leaders Weave Stories — Personal Leadership Narrative</h1>
+    <p class="text-gray-500 text-sm">This copy is <b>pre-wired</b> to your Google Form. Fill, then submit.</p>
+  </div>
+  <div class="flex gap-2 items-center no-print">
+    <span class="text-xs px-2 py-1 rounded border border-green-600 text-green-700 bg-green-50">Connected</span>
+    <button id="print-btn" class="px-3 py-2 border rounded">Print / PDF</button>
+  </div>
+</header>
 
-  <main class="max-w-5xl mx-auto p-4 sm:p-6">
-    <div class="bg-white card rounded-2xl shadow-lg p-6 sm:p-8" id="wizard" role="region" aria-label="Leadership Narrative Wizard">
+<div id="wizard" class="max-w-5xl mx-auto bg-white rounded-2xl shadow p-6 sm:p-8">
+  <div id="wizard-progress" class="mb-4 text-sm text-gray-600">Step 1 of 6</div>
 
-      <header class="mb-6">
-        <h1 class="text-2xl font-semibold">Personal Leadership Narrative</h1>
-        <p class="text-gray-500 text-sm">Leaders Weave Stories</p>
-      </header>
-
-      <div class="mb-6">
-        <div class="w-full bg-gray-200 rounded-full h-2"><div id="progress-bar" class="h-2 rounded-full progress-bar-fill" style="background:var(--brand); width:20%"></div></div>
-        <p id="progress-text" class="mt-3 text-sm text-gray-600">Step 1 of 5: Your Experiences</p>
+  <form id="form" class="space-y-8">
+    <!-- Student meta -->
+    <section id="s0" class="form-section active">
+      <h2 class="text-xl font-semibold mb-2">Student Info</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div><label class="block text-sm font-medium">Name</label><input name="student-name" type="text" class="mt-1 w-full border rounded p-2" placeholder="Your full name"></div>
+        <div><label class="block text-sm font-medium">Email</label><input name="student-email" type="email" class="mt-1 w-full border rounded p-2" placeholder="you@school.edu"></div>
+        <div><label class="block text-sm font-medium">Cohort / Section (optional)</label><input name="student-cohort" type="text" class="mt-1 w-full border rounded p-2" placeholder="e.g., MBA-2026-A"></div>
       </div>
+    </section>
 
-      <form id="narrative-form" class="space-y-8" autocomplete="off">
-        <section id="section-1" class="form-section active" aria-labelledby="s1"><h2 id="s1" class="text-xl font-semibold mb-2">Part 1: Experiences</h2>
-          <textarea name="experience-1" rows="3" class="w-full p-3 border rounded mb-2" placeholder="Experience 1"></textarea>
-          <textarea name="experience-2" rows="3" class="w-full p-3 border rounded mb-2" placeholder="Experience 2 (optional)"></textarea>
-          <textarea name="experience-3" rows="3" class="w-full p-3 border rounded" placeholder="Experience 3 (optional)"></textarea>
-        </section>
+    <!-- Section 1 -->
+    <section id="s1" class="form-section">
+      <h2 class="text-xl font-semibold mb-2">Part 1: The Building Blocks</h2>
+      <textarea name="experience-1" rows="3" class="w-full border p-3 rounded mb-2" placeholder="Experience 1"></textarea>
+      <textarea name="experience-2" rows="3" class="w-full border p-3 rounded mb-2" placeholder="Experience 2 (optional)"></textarea>
+      <textarea name="experience-3" rows="3" class="w-full border p-3 rounded" placeholder="Experience 3 (optional)"></textarea>
+    </section>
 
-        <section id="section-2" class="form-section" aria-labelledby="s2"><h2 id="s2" class="text-xl font-semibold mb-2">Part 2: Philosophy</h2>
-          <textarea id="lessons-learned" name="lessons-learned" rows="3" class="w-full p-3 border rounded mb-2" placeholder="Key lessons"></textarea>
-          <textarea id="core-values" name="core-values" rows="3" class="w-full p-3 border rounded mb-2" placeholder="Core values (3–5)"></textarea>
-          <textarea id="leader-definition" name="leader-definition" rows="3" class="w-full p-3 border rounded" placeholder='“A great leader is someone who…”'></textarea>
-        </section>
+    <!-- Section 2 -->
+    <section id="s2" class="form-section">
+      <h2 class="text-xl font-semibold mb-2">Part 2: Connecting the Dots</h2>
+      <textarea id="lessons-learned" name="lessons-learned" rows="3" class="w-full border p-3 rounded mb-2" placeholder="Key lessons"></textarea>
+      <textarea id="core-values" name="core-values" rows="3" class="w-full border p-3 rounded mb-2" placeholder="Core values (3–5)"></textarea>
+      <textarea id="leader-definition" name="leader-definition" rows="3" class="w-full border p-3 rounded" placeholder="A great leader is someone who..."></textarea>
+    </section>
 
-        <section id="section-3" class="form-section" aria-labelledby="s3"><h2 id="s3" class="text-xl font-semibold mb-2">Part 3: Narrative</h2>
-          <textarea id="leader-statement" name="leader-statement" rows="3" class="w-full p-3 border rounded mb-2" placeholder='“I am a leader who…”'></textarea>
-          <textarea id="future-vision" name="future-vision" rows="3" class="w-full p-3 border rounded" placeholder="Future leadership vision (5–10y)"></textarea>
-        </section>
+    <!-- Section 3 -->
+    <section id="s3" class="form-section">
+      <h2 class="text-xl font-semibold mb-2">Part 3: Crafting Your Narrative</h2>
+      <textarea id="leader-statement" name="leader-statement" rows="3" class="w-full border p-3 rounded mb-2" placeholder="I am a leader who..."></textarea>
+      <textarea id="future-vision" name="future-vision" rows="3" class="w-full border p-3 rounded" placeholder="Future vision (5–10y)"></textarea>
+    </section>
 
-        <section id="section-4" class="form-section" aria-labelledby="s4"><h2 id="s4" class="text-xl font-semibold mb-2">Part 4: Signature Story</h2>
-          <textarea id="story-situation" name="story-situation" rows="3" class="w-full p-3 border rounded mb-2" placeholder="Situation"></textarea>
-          <textarea id="story-action" name="story-action" rows="3" class="w-full p-3 border rounded mb-2" placeholder="Action"></textarea>
-          <textarea id="story-result" name="story-result" rows="3" class="w-full p-3 border rounded mb-2" placeholder="Result"></textarea>
-          <textarea id="story-so-what" name="story-so-what" rows="3" class="w-full p-3 border rounded" placeholder="So What?"></textarea>
-        </section>
+    <!-- Section 4 -->
+    <section id="s4" class="form-section">
+      <h2 class="text-xl font-semibold mb-2">Part 4: Your Signature Story</h2>
+      <textarea id="story-situation" name="story-situation" rows="3" class="w-full border p-3 rounded mb-2" placeholder="Situation"></textarea>
+      <textarea id="story-action" name="story-action" rows="3" class="w-full border p-3 rounded mb-2" placeholder="Action"></textarea>
+      <textarea id="story-result" name="story-result" rows="3" class="w-full border p-3 rounded mb-2" placeholder="Result"></textarea>
+      <textarea id="story-so-what" name="story-so-what" rows="3" class="w-full border p-3 rounded" placeholder="So What?"></textarea>
+    </section>
 
-        <section id="summary-section" class="form-section" aria-labelledby="s5">
-          <h2 id="s5" class="text-xl font-semibold text-center mb-4">Summary & Attributes</h2>
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-            <div><label>Empathy</label><input id="attr-empathy" type="range" min="1" max="5" value="3" class="w-full chart-slider"></div>
-            <div><label>Decisiveness</label><input id="attr-decisiveness" type="range" min="1" max="5" value="3" class="w-full chart-slider"></div>
-            <div><label>Communication</label><input id="attr-communication" type="range" min="1" max="5" value="3" class="w-full chart-slider"></div>
-            <div><label>Vision</label><input id="attr-vision" type="range" min="1" max="5" value="3" class="w-full chart-slider"></div>
-            <div><label>Integrity</label><input id="attr-integrity" type="range" min="1" max="5" value="3" class="w-full chart-slider"></div>
-            <div><label>Resilience</label><input id="attr-resilience" type="range" min="1" max="5" value="3" class="w-full chart-slider"></div>
-          </div>
-          <div class="chart-container"><canvas id="leadershipChart"></canvas></div>
+    <!-- Section 5 -->
+    <section id="s5" class="form-section">
+      <h2 class="text-xl font-semibold text-center mb-4">Summary + Attributes</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+        <div><label>Empathy</label><input id="attr-empathy" name="attr-empathy" type="range" min="1" max="5" value="3" class="w-full"></div>
+        <div><label>Decisiveness</label><input id="attr-decisiveness" name="attr-decisiveness" type="range" min="1" max="5" value="3" class="w-full"></div>
+        <div><label>Communication</label><input id="attr-communication" name="attr-communication" type="range" min="1" max="5" value="3" class="w-full"></div>
+        <div><label>Vision</label><input id="attr-vision" name="attr-vision" type="range" min="1" max="5" value="3" class="w-full"></div>
+        <div><label>Integrity</label><input id="attr-integrity" name="attr-integrity" type="range" min="1" max="5" value="3" class="w-full"></div>
+        <div><label>Resilience</label><input id="attr-resilience" name="attr-resilience" type="range" min="1" max="5" value="3" class="w-full"></div>
+      </div>
+      <div class="h-72"><canvas id="chart"></canvas></div>
 
-          <div class="mt-6 p-4 bg-blue-50 rounded">
-            <h3 class="font-semibold mb-2">Submit</h3>
-            <p class="text-sm text-gray-600 mb-3">This opens your default mail app with a pre-filled draft. If it doesn’t open, use Gmail (web) or copy the summary.</p>
-            <div class="flex flex-wrap gap-2">
-              <button id="submit-btn" type="button" class="px-4 py-2 rounded text-white" style="background:var(--brand)">Email to Instructor</button>
-              <button id="gmail-btn" type="button" class="px-4 py-2 rounded border">Open in Gmail (web)</button>
-              <button id="copy-btn" type="button" class="px-4 py-2 rounded border">Copy Summary</button>
-            </div>
-            <p id="submit-status" class="text-xs text-gray-500 mt-2"></p>
-          </div>
-        </section>
-
-        <div id="controls" class="mt-8 flex justify-between">
-          <button type="button" id="prev-btn" class="px-4 py-2 border rounded disabled:opacity-40" disabled>Previous</button>
-          <div class="flex gap-2">
-            <button type="button" id="next-btn" class="px-4 py-2 rounded text-white" style="background:var(--brand)">Next</button>
-            <button type="button" id="finish-btn" class="px-4 py-2 rounded bg-green-600 text-white hidden">See Summary</button>
-          </div>
+      <div class="mt-6 p-4 bg-blue-50 rounded">
+        <h3 class="font-semibold mb-2">Submit</h3>
+        <p class="text-sm text-gray-600 mb-3">This posts directly to the instructor Form (opens a new tab confirmation).</p>
+        <div class="flex flex-wrap gap-2">
+          <button id="submit-google" type="button" class="px-4 py-2 rounded text-white" style="background:var(--brand)">Submit to Google Form</button>
+          <button id="copy-json" type="button" class="px-4 py-2 rounded border">Copy JSON</button>
         </div>
-      </form>
+        <p id="status" class="text-xs text-gray-500 mt-2"></p>
+      </div>
+    </section>
+
+    <div id="controls" class="mt-6 flex justify-between">
+      <button id="prev" type="button" class="px-4 py-2 border rounded disabled:opacity-40" disabled>Previous</button>
+      <div class="flex gap-2">
+        <button id="next" type="button" class="px-4 py-2 rounded text-white" style="background:var(--brand)">Next</button>
+        <button id="finish" type="button" class="px-4 py-2 rounded bg-green-600 text-white hidden">See Summary</button>
+      </div>
     </div>
-  </main>
+  </form>
+</div>
 
-  <script>
-    // Wizard
-    const sections = document.querySelectorAll('.form-section');
-    const prevBtn = document.getElementById('prev-btn');
-    const nextBtn = document.getElementById('next-btn');
-    const finishBtn = document.getElementById('finish-btn');
-    const progressBar = document.getElementById('progress-bar');
-    const progressText = document.getElementById('progress-text');
-    let current = 0;
-    const titles = ["Your Experiences","Your Philosophy","Your Vision","Your Signature Story","Your Narrative Summary"];
-    function show(i){ sections.forEach((s,k)=> s.classList.toggle('active', k===i)); current=i; const pct=((i+1)/sections.length)*100; progressBar.style.width=pct+'%'; progressText.textContent=`Step ${i+1} of ${sections.length}: ${titles[i]}`; prevBtn.disabled=i===0; nextBtn.classList.toggle('hidden', i===sections.length-1); finishBtn.classList.toggle('hidden', i!==sections.length-2); if(i===sections.length-1) drawChart(); }
-    prevBtn.onclick=()=>{ if(current>0){ if(current===sections.length-1){ show(0);} else { show(current-1);} } };
-    nextBtn.onclick=()=> show(current+1);
-    finishBtn.onclick=()=> show(sections.length-1);
-    show(0);
+<script>
+// Wizard
+const sections = [...document.querySelectorAll('.form-section')];
+let idx = 0;
+function show(i) { sections.forEach((s,k)=> s.classList.toggle('active', k===i)); idx = i;
+  document.getElementById('prev').disabled = i===0;
+  document.getElementById('next').classList.toggle('hidden', i===sections.length-1);
+  document.getElementById('finish').classList.toggle('hidden', i!==sections.length-2);
+  document.getElementById('wizard-progress').textContent = `Step ${i+1} of ${sections.length}`;
+  if (i===sections.length-1) drawChart();
+}
+show(0);
+document.getElementById('next').onclick = ()=> show(idx+1);
+document.getElementById('prev').onclick = ()=> show(idx-1);
+document.getElementById('finish').onclick = ()=> show(sections.length-1);
+document.getElementById('print-btn').onclick = ()=> window.print();
 
-    // Chart
-    let chart;
-    function drawChart(){
-      const ctx=document.getElementById('leadershipChart').getContext('2d');
-      if(chart) chart.destroy();
-      const vals=['attr-empathy','attr-decisiveness','attr-communication','attr-vision','attr-integrity','attr-resilience'].map(id=>+document.getElementById(id).value);
-      chart=new Chart(ctx,{type:'radar',data:{labels:['Empathy','Decisiveness','Communication','Vision','Integrity','Resilience'],datasets:[{data:vals,label:'Self-Assessment',backgroundColor:'rgba(31,76,157,.2)',borderColor:'rgba(31,76,157,1)',borderWidth:2}]},options:{maintainAspectRatio:false,scales:{r:{min:0,max:5,ticks:{stepSize:1}}},plugins:{legend:{display:false}}}});
-    }
-    document.querySelectorAll('.chart-slider').forEach(s=> s?.addEventListener('input', ()=>{ if(current===sections.length-1) drawChart(); }));
+// Chart
+let chart;
+function drawChart() { const ctx = document.getElementById('chart').getContext('2d');
+  if (chart) chart.destroy();
+  const vals = ['attr-empathy','attr-decisiveness','attr-communication','attr-vision','attr-integrity','attr-resilience']
+    .map(id => +document.getElementById(id).value);
+  chart = new Chart(ctx, { type:'radar', data:{
+    labels:['Empathy','Decisiveness','Communication','Vision','Integrity','Resilience'],
+    datasets:[{ data: vals, label:'Self-Assessment',
+      backgroundColor:'rgba(31,76,157,.2)', borderColor:'rgba(31,76,157,1)', borderWidth:2 }]
+  }, options:{ scales:{ r:{ min:0, max:5, ticks:{ stepSize:1 } }}, plugins:{ legend:{ display:false } } } });
+}
+['attr-empathy','attr-decisiveness','attr-communication','attr-vision','attr-integrity','attr-resilience'].forEach(id => {
+  document.getElementById(id).addEventListener('input', ()=> { if (idx===sections.length-1) drawChart(); });
+});
 
-    // Serialize
-    function serialize(){
-      const f=document.getElementById('narrative-form');
-      const data={};
-      new FormData(f).forEach((v,k)=> data[k]=v);
-      ['attr-empathy','attr-decisiveness','attr-communication','attr-vision','attr-integrity','attr-resilience'].forEach(id=> data[id]=document.getElementById(id).value);
-      return data;
-    }
+// === Fixed prewired config ===
+const FORM_ACTION = "https://docs.google.com/forms/d/e/1FAIpQLSc1xwC2rPnwHiwEEQ2ia_zy6Ll9mksXdK6Y6R77-6z_hl5iHw/formResponse";
+const MAP = {"student-name": "entry.1045198425", "student-email": "entry.722716088", "student-cohort": "entry.251583336", "experience-1": "entry.884348106", "experience-2": "entry.1375449959", "experience-3": "entry.1755801192", "lessons-learned": "entry.1654717553", "core-values": "entry.314814547", "leader-definition": "entry.1137312544", "leader-statement": "entry.997126339", "future-vision": "entry.1081752078", "story-situation": "entry.1986752022", "story-action": "entry.927241782", "story-result": "entry.562305060", "story-so-what": "entry.832435565", "attr-empathy": "entry.857133554", "attr-decisiveness": "entry.432038981", "attr-communication": "entry.1021788076", "attr-vision": "entry.727195810", "attr-integrity": "entry.1488980770", "attr-resilience": "entry.47055595"};
 
-    // Compose summary
-    function buildSummary(data){
-      const leader = (data['leader-statement']||'—').trim();
-      const values = (data['core-values']||'—').trim();
-      const story = ((data['story-situation']||'') || (data['story-action']||'') || (data['story-result']||''))
-        ? `When ${data['story-situation']||'…'}, I chose to ${data['story-action']||'…'}, which led to ${data['story-result']||'…'}.`
-        : '—';
-      const attrs = `Attributes (1–5): Empathy ${data['attr-empathy']||'-'}, Decisiveness ${data['attr-decisiveness']||'-'}, Communication ${data['attr-communication']||'-'}, Vision ${data['attr-vision']||'-'}, Integrity ${data['attr-integrity']||'-'}, Resilience ${data['attr-resilience']||'-'}`;
-      const vision = `Vision (5–10y): ${data['future-vision']||'—'}`;
-      return [`I am a leader who: ${leader}`, `Values: ${values}`, `Story: ${story}`, vision, attrs].join('\n');
-    }
+// Submit
+document.getElementById('submit-google').addEventListener('click', ()=>{
+  if(!FORM_ACTION || !MAP || Object.keys(MAP).length < 5) { alert('Form mapping not configured.'); return; }
+  const fdata = {};
+  new FormData(document.getElementById('form')).forEach((v,k)=> fdata[k]=v);
+  ['attr-empathy','attr-decisiveness','attr-communication','attr-vision','attr-integrity','attr-resilience'].forEach(id=> fdata[id] = document.getElementById(id).value);
 
-    // Helpers
-    function encodeMail(s){ return encodeURIComponent(s).replace(/%20/g,'+'); }
-    function truncateForMailto(s, max=1800){ // keep room for subject+to
-      if(s.length<=max) return s;
-      return s.slice(0, max-50) + '\n… (truncated)';
-    }
-    function openMailto(to, subject, body){
-      const url = `mailto:${to}?subject=${encodeMail(subject)}&body=${encodeMail(body)}`;
-      const a = document.createElement('a');
-      a.href = url;
-      a.style.display='none';
-      document.body.appendChild(a);
-      a.click();
-      setTimeout(()=>{ document.body.removeChild(a); }, 50);
-      return url;
-    }
-    function gmailCompose(to, subject, body){
-      const url = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeMail(to)}&su=${encodeMail(subject)}&body=${encodeMail(body)}`;
-      window.open(url, '_blank','noopener,noreferrer');
-    }
+  const post = document.createElement('form');
+  post.method = 'POST'; post.action = FORM_ACTION; post.target = '_blank';
+  Object.entries(MAP).forEach(([field, entryId])=> {
+    const input = document.createElement('input');
+    input.type = 'hidden'; input.name = entryId; input.value = fdata[field] || '';
+    post.appendChild(input);
+  });
+  document.body.appendChild(post); post.submit(); document.body.removeChild(post);
+  document.getElementById('status').textContent = 'Submitted to Google Form (see the new tab / Form responses).';
+});
 
-    const statusEl = document.getElementById('submit-status');
-    document.getElementById('submit-btn').addEventListener('click', ()=>{
-      const data = serialize();
-      const share = btoa(encodeURIComponent(JSON.stringify(data)));
-      const shareLink = `${location.origin}${location.pathname}#data=${share}`;
-      let summary = buildSummary(data) + `\nShare link: ${shareLink}`;
-      summary = truncateForMailto(summary, 1700);
-
-      const to = InstitutionConfig.instructorEmail || '';
-      if(!to){ statusEl.textContent = 'No instructor email configured.'; return; }
-      const subject = 'Leadership Narrative Submission — Leaders Weave Stories';
-      openMailto(to, subject, summary);
-      setTimeout(()=>{ statusEl.textContent = "If your email client didn't open, click 'Open in Gmail (web)' or 'Copy Summary' below."; }, 500);
-    });
-
-    document.getElementById('gmail-btn').addEventListener('click', ()=>{
-      const data = serialize();
-      const share = btoa(encodeURIComponent(JSON.stringify(data)));
-      const shareLink = `${location.origin}${location.pathname}#data=${share}`;
-      let summary = buildSummary(data) + `\nShare link: ${shareLink}`;
-      gmailCompose(InstitutionConfig.instructorEmail || '', 'Leadership Narrative Submission — Leaders Weave Stories', summary);
-    });
-
-    document.getElementById('copy-btn').addEventListener('click', async ()=>{
-      const data = serialize();
-      const share = btoa(encodeURIComponent(JSON.stringify(data)));
-      const shareLink = `${location.origin}${location.pathname}#data=${share}`;
-      const summary = buildSummary(data) + `\nShare link: ${shareLink}`;
-      await navigator.clipboard.writeText(summary);
-      statusEl.textContent = 'Summary copied. Paste it into your email.';
-    });
-  </script>
+// Copy JSON
+document.getElementById('copy-json').addEventListener('click', ()=>{
+  const f = document.getElementById('form'); const data = {};
+  new FormData(f).forEach((v,k)=> data[k]=v);
+  ['attr-empathy','attr-decisiveness','attr-communication','attr-vision','attr-integrity','attr-resilience'].forEach(id=> data[id] = document.getElementById(id).value);
+  navigator.clipboard.writeText(JSON.stringify(data, null, 2));
+  document.getElementById('status').textContent = 'Copied JSON to clipboard.';
+});
+</script>
 </body>
 </html>
